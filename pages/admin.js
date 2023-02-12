@@ -15,6 +15,21 @@ const queries = {
       $sort: { count: -1 },
     },
   ],
+  "Option B": [
+    {
+      $group: {
+        _id: "$brand",
+        count: { $sum: 1 },
+      },
+    },
+    {
+      $sort: { count: -1 },
+    },
+    {
+      $limit: 5,
+    },
+  ],
+
 };
 
 function App() {
@@ -23,7 +38,7 @@ function App() {
 
   const handleOptionSelect = async (option) => {
     setSelectedOption(option);
-    const query = queries[option];
+    const query = queries[option]
     if (query) {
       try {
         await initMongoose();
@@ -40,16 +55,17 @@ function App() {
   return (
     <div style={{ display: "flex" }}>
       <div style={{ width: "20%", height: "100vh", background: "lightgray" }}>
-        <button onClick={() => handleOptionSelect("Option 1")}>Button 1</button>
+        <button onClick={() => handleOptionSelect("Option 1")}>Agregar</button>
         <br />
-        <button onClick={() => handleOptionSelect("Option 2")}>Button 2</button>
+        <button onClick={() => handleOptionSelect("Option 2")}>Eliminar</button>
         <br />
-        <button onClick={() => handleOptionSelect("Option 3")}>Button 3</button>
+        <button onClick={() => handleOptionSelect("Option 3")}>Modificar</button>
       </div>
       <div style={{ width: "80%", height: "100vh", padding: "16px" }}>
         <h2>Reposteria:</h2>
         <ul>
           <li onClick={() => handleOptionSelect("Option A")}>¿Cual es la marca que hay mas en stock?</li>
+          <li onClick={() => handleOptionSelect("Option B")}>Option B</li>
         </ul>
         <br />
         <div
@@ -60,6 +76,8 @@ function App() {
           }}
         >
           {selectedOption === "Option A" ? (
+            <pre>{JSON.stringify(queryResult, null, 2)}</pre>
+          ) : selectedOption === "Option B" ? (
             <pre>{JSON.stringify(queryResult, null, 2)}</pre>
           ) : null}
         </div>
