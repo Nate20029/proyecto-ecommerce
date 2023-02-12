@@ -8,7 +8,7 @@ import Layout from "../components/Layout";
 export default function Home({products}) {
   const [phrase,setPhrase] = useState('');
 
-  const categoriesNames = [...new Set(products.map(p => p.category))];
+  const categoriesNames = [...new Set(products.map(p => p.brand))];
 
   if (phrase) {
     products = products.filter(p => p.name.toLowerCase().includes(phrase));
@@ -20,11 +20,10 @@ export default function Home({products}) {
       <div>
         {categoriesNames.map(categoryName => (
           <div key={categoryName}>
-            {products.find(p => p.category === categoryName) && (
+            {products.find(p => p.brand === categoryName) && (
               <div>
-                <h2 className="text-2xl py-5 capitalize">{categoryName}</h2>
-                <div className="flex -mx-5 overflow-x-scroll snap-x scrollbar-hide">
-                  {products.filter(p => p.category === categoryName).map(productInfo => (
+                <div className="flex flex-wrap -mx-5 overflow-x-scroll snap-x ">
+                  {products.map(productInfo => (
                     <div key={productInfo._id} className="px-5 snap-start">
                       <Product {...productInfo} />
                     </div>
