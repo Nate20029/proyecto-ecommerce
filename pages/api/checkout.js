@@ -24,8 +24,8 @@ export default async function handler(req,res) {
       quantity,
       price_data: {
         currency: 'USD',
-        product_data: {name:product.name},
-        unit_amount: product.price * 100,
+        product_data: {name:product.brand},
+        unit_amount: product.latest_price * 100,
       },
     });
   }

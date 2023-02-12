@@ -11,7 +11,7 @@ export default function Home({products}) {
   const categoriesNames = [...new Set(products.map(p => p.brand))];
 
   if (phrase) {
-    products = products.filter(p => p.name.toLowerCase().includes(phrase));
+    products = products.filter(p => p.brand.toLowerCase().includes(phrase));
   }
 
   return (
@@ -22,7 +22,7 @@ export default function Home({products}) {
           <div key={categoryName}>
             {products.find(p => p.brand === categoryName) && (
               <div>
-                <div className="flex flex-wrap -mx-5 overflow-x-scroll snap-x ">
+                <div className="flex flex-wrap -mx-5 overflow-x-scroll snap-x overflow-hidden">
                   {products.map(productInfo => (
                     <div key={productInfo._id} className="px-5 snap-start">
                       <Product {...productInfo} />

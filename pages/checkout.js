@@ -33,7 +33,7 @@ export default function CheckoutPage() {
   let subtotal = 0;
   if (selectedProducts?.length) {
     for (let id of selectedProducts) {
-      const price = productsInfos.find(p => p._id === id)?.price || 0;
+      const price = productsInfos.find(p => p._id === id)?.latest_price || 0;
       subtotal += price;
     }
   }
@@ -53,10 +53,12 @@ export default function CheckoutPage() {
             <img className="w-24" src={productInfo.picture} alt=""/>
           </div>
           <div className="pl-4 items-center">
-            <h3 className="font-bold text-lg">{productInfo.name}</h3>
-            <p className="text-sm leading-4 text-gray-500">{productInfo.description}</p>
+            <h3 className="font-bold text-lg">{productInfo.brand}</h3>
+            <p className="text-sm leading-4 text-gray-500">{productInfo.model}</p>
+            <p className="text-sm leading-4 text-gray-500">{productInfo.processor_name}</p>
+            <p className="text-sm leading-4 text-gray-500">{productInfo.ram_gb}</p>
             <div className="flex mt-1">
-              <div className="grow font-bold">${productInfo.price}</div>
+              <div className="grow font-bold">${productInfo.latest_price}</div>
               <div>
                 <button onClick={() => lessOfThisProduct(productInfo._id)} className="border border-emerald-500 px-2 rounded-lg text-emerald-500">-</button>
                 <span className="px-2">
