@@ -1,16 +1,121 @@
 import { useEffect, useState } from "react";
+import Footer from "../components/Footer";
+import Link from "next/link";
 
 function App() {
   const [productsInfo, setProductsInfo] = useState([]);
+  const [productsInfo2, setProductsInfo2] = useState([]);
+  const [productsInfo3, setProductsInfo3] = useState([]);
+  const [productsInfo4, setProductsInfo4] = useState([]);
+  const [selectedOption, setSelectedOption] = useState("");
+  
+  const handleOptionSelect = async (option) => {
+    setSelectedOption(option);
+  }
+
   useEffect(() => {
     fetch("/api/query1")
       .then(response => response.json())
       .then(json => setProductsInfo(json));
   }, []);
 
+  useEffect(() => {
+    fetch("/api/query2")
+      .then(response => response.json())
+      .then(json => setProductsInfo2(json));
+  }, []);
+
+  useEffect(() => {
+    fetch("/api/query3")
+      .then(response => response.json())
+      .then(json => setProductsInfo3(json));
+  }, []);
+  
+  useEffect(() => {
+    fetch("/api/query4")
+      .then(response => response.json())
+      .then(json => setProductsInfo4(json));
+  }, []);
+
   const brandName = [...new Set(productsInfo)];
+  const brandName2 = [...new Set(productsInfo2)];
+  const brandName3 = [...new Set(productsInfo3)];
+  const brandName4 = [...new Set(productsInfo4)];
+
   console.log({ brandName });
   return (
+    <div style={{ display: "flex" }}>
+       <div style={{ width: "20%", height: "100vh", background: "lightgray" }}>
+          <Link href={"/crear"}>
+            <button>Agregar</button>
+          </Link>
+          <br />
+          <Link href="/modificar">
+            <button>Modificar</button>
+          </Link>
+          <br />
+          <Link href="/eliminar">
+            <button>Eliminar</button>
+          </Link>
+       </div>
+       <div style={{ width: "80%", height: "100vh", padding: "16px" }}>
+         <h2>Reposteria:</h2>
+         <ul>
+           <li onClick={() => handleOptionSelect("Option A")}>¿Cual es la marca que hay mas en stock?</li>
+           <li onClick={() => handleOptionSelect("Option B")}>¿Que productos tienen mejor Rating?</li>
+           <li onClick={() => handleOptionSelect("Option C")}>¿Que productos son los mas comprados?</li>
+           <li onClick={() => handleOptionSelect("Option D")}>Historial de Ordenes</li>
+         </ul>
+         <br />
+         <div
+           style={{
+             background: "lightgray",
+             padding: "16px",
+             borderRadius: "4px",
+           }}
+         >
+           {selectedOption === "Option A" ? (
+              <div>
+              {brandName.map(brandN => (
+                <div key={brandN._id}>
+                  <h6 className="text-2xl capitalize">{brandN._id + ": " + brandN.count}</h6>
+                </div>
+              ))}
+              </div>
+           ) : selectedOption === "Option B" ? (
+              <div>
+              {brandName2.map(brandN => (
+                <div key={brandN._id}>
+                  <h6 className="text-2xl capitalize">{"Id/Model :" + brandN._id + "/ " + brandN.model}</h6>
+                </div>
+              ))}
+            </div>
+           ) : selectedOption === "Option C" ? (
+            <div>
+            {brandName3.map(brandN => (
+              <div key={brandN._id}>
+                <h6 className="text-2xl capitalize">{"Id/No. :" + brandN._id + "/ " + brandN.count}</h6>
+              </div>
+            ))}
+          </div>
+           ) : selectedOption === "Option D" ? (
+            <div>
+            {brandName4.map(brandN => (
+              <div key={brandN._id}>
+                <h6 className="text-2xl capitalize">{"-" + brandN._id + "/ " + "/ " + brandN.name + "/ " + brandN.createdAt}</h6>
+              </div>
+            ))}
+            </div>
+          ) : null}
+         </div>
+       </div>
+       <Footer></Footer>
+     </div>
+  );
+
+}
+export default App;
+/*
     <div>
       {brandName.map(brandN => (
         <div key={brandN._id}>
@@ -18,11 +123,6 @@ function App() {
         </div>
       ))}
     </div>
-  );
-
-}
-export default App;
-/*
 
 {brandName.map(brandN => (
         <div key={brandN}>

@@ -1,4 +1,3 @@
-
 import {initMongoose} from "../../lib/mongoose";
 import Product from "../../models/Product";
 
@@ -9,6 +8,9 @@ export async function findAllProductsAggregate() {
         "_id": "$brand",
         "count": { "$sum": 1 }
       }
+    },
+    {
+      "$sort": { "count": -1 }
     }
   ]).exec();
 }
@@ -27,9 +29,12 @@ export default async function handle(req, res) {
         },
         {
           "$group": {
-            "_id": "$brand",
-            "count": { "$sum": 1 }
+              "_id": "$brand",
+              "count": { "$sum": 1 }
           }
+        },
+        {
+          "$sort": { "count": -1 }
         }
       ]).exec()
     );
