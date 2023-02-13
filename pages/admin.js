@@ -1,3 +1,35 @@
+import { useEffect, useState } from "react";
+
+function App() {
+  const [productsInfo, setProductsInfo] = useState([]);
+  useEffect(() => {
+    fetch("/api/query1")
+      .then(response => response.json())
+      .then(json => setProductsInfo(json));
+  }, []);
+
+  const brandName = [...new Set(productsInfo)];
+  console.log({ brandName });
+  return (
+    <div>
+      {brandName.map(brandN => (
+        <div key={brandN._id}>
+          <h6 className="text-2xl capitalize">{brandN._id + ": " + brandN.count}</h6>
+        </div>
+      ))}
+    </div>
+  );
+
+}
+export default App;
+/*
+
+{brandName.map(brandN => (
+        <div key={brandN}>
+          <h4 className="text-2xl capitalize">{brandN}</h4>
+        </div>
+      ))}
+
 import React, { useState } from "react";
 import mongoose from "mongoose";
 import { initMongoose } from "../lib/mongoose";
@@ -98,6 +130,8 @@ const queries = {
  }
 
 export default App;
+
+*/
 
 // import React, { useState, useEffect } from "react";
 // import mongoose from "mongoose";
