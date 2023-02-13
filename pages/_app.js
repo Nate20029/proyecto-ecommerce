@@ -1,11 +1,15 @@
 import '../styles/globals.css'
-import {ProductsContextProvider} from "../components/ProductsContext";
+import { ProductsContextProvider } from "../components/ProductsContext";
+
 
 function MyApp({ Component, pageProps }) {
   return (
-    <ProductsContextProvider>
-      <Component {...pageProps} />
-    </ProductsContextProvider>
+<div>
+      <ProductsContextProvider>
+        <Component {...pageProps} />
+      </ProductsContextProvider>
+
+    </div>
   );
 }
 
