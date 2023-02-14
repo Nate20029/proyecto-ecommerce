@@ -70,7 +70,6 @@ export default function CheckoutPage() {
                 </div>
 
                 <input type="hidden" name="products" value={selectedProducts.join(',')} />
-                <button type="submit" className="bg-emerald-500 px-5 py-2 rounded-xl font-bold text-white w-full my-4 shadow-emerald-300 shadow-lg">Guardar </button>
             </form>
         </Layout>
     );

@@ -50,13 +50,6 @@ function App() {
             <button>Agregar</button>
           </Link>
           <br />
-          <Link href="/modificar">
-            <button>Modificar</button>
-          </Link>
-          <br />
-          <Link href="/eliminar">
-            <button>Eliminar</button>
-          </Link>
        </div>
        <div style={{ width: "80%", height: "100vh", padding: "16px" }}>
          <h2>Reposteria:</h2>
@@ -107,6 +100,9 @@ function App() {
             ))}
             </div>
           ) : null}
+         </div>
+         <div>
+         <iframe style={{background:" #F1F5F4;border: none;border-radius: 2px;box-shadow: 0 2px 10px 0 rgba(70, 76, 79, .2);width: 100vw;height: 100vh;" }}  src="https://charts.mongodb.com/charts-project-0-qaebz/embed/dashboards?id=63ea74c8-7e11-4b38-8a81-487cfd4399e3&theme=light&autoRefresh=true&maxDataAge=3600&showTitleAndDesc=false&scalingWidth=fixed&scalingHeight=fixed"></iframe>
          </div>
        </div>
        <Footer></Footer>
